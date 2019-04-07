@@ -1,2 +1,6 @@
 #server.port: 5000
-logging.level.org.springframework: INFO
+logging:
+  level:
+    root: INFO
+    springframework.web: INFO
+    org.hibernate: INFO

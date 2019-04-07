@@ -22,12 +22,19 @@ repositories {
 bootJar{
     launchScript()
 }
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.thymeleaf:thymeleaf:3.0.9.RELEASE'
+    compile 'org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE'
+    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0'
     compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.apache.commons:commons-lang3:3.7'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+ext['thymeleaf-layout-dialect.version'] = '2.2.2'

@@ -7,4 +7,8 @@ spring:
 #    url: jdbc:mysql://104.198.126.171:3306/sample_db?autoReconnect=true&useSSL=false
 
 #server.port: 5000
-logging.level.org.springframework: WARN
+logging:
+  level:
+    root: WARN
+    springframework.web: WARN
+    org.hibernate: WARN

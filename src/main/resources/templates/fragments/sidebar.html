@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/img/sidebar-1.jpg" th:fragment="sidebar">
+    <div class="logo">
+        <a href="/" class="simple-text">
+            Material Chat
+        </a>
+    </div>
+    <div class="logo logo-mini">
+        <a href="/" class="simple-text">
+            Mc
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <div class="user">
+            <div class="photo">
+                <img th:src="@{/img/default-avatar.png}" />
+            </div>
+            <div class="info">
+                <a data-toggle="collapse" href="#collapse" class="collapsed">
+                    {{ session.user.user_name }}
+                    <b class="caret"></b>
+                </a>
+                <div class="collapse" id="collapse">
+                    <ul class="nav">
+                        <li>
+                            <a href="/">My Profile</a>
+                        </li>
+                        <li>
+                            <a href="/">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="/">
+                    <i class="material-icons">home</i>
+                    <p>ホーム</p>
+                </a>
+            </li>
+            <li>
+                <a href="/">
+                    <i class="material-icons">person</i>
+                    <p>ユーザーを検索</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
