@@ -1,5 +1,6 @@
 package jp.co.gaban.chat_spring.controller;
 
+import jp.co.gaban.chat_spring.annotation.NonAuth;
 import jp.co.gaban.chat_spring.domain.model.User;
 import jp.co.gaban.chat_spring.service.UserService;
 import jp.co.gaban.chat_spring.view.LoginForm;
@@ -21,9 +22,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
-    private final static String LOGIN_PAGE = "/login";
-    final static String LOGIN_HTML = "login";
-    private final static String LOGOUT_PAGE = "/logout";
+    public final static String LOGIN_PAGE = "/login";
+    public final static String LOGIN_HTML = "login";
+    public final static String LOGOUT_PAGE = "/logout";
 
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -32,11 +33,13 @@ public class LoginController {
     @Autowired
     HttpSession session;
 
+    @NonAuth
     @RequestMapping(value = LoginController.LOGIN_PAGE, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") LoginForm form) {
         return LoginController.LOGIN_HTML;
     }
 
+    @NonAuth
     @RequestMapping(value = LoginController.LOGIN_PAGE, method = RequestMethod.POST)
     public String login(@ModelAttribute("form") @Validated LoginForm form, BindingResult result) {
         logger.debug("LoginController:[login] Passing through...");

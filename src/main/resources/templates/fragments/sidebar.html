@@ -18,7 +18,8 @@
                 <img th:src="@{/img/default-avatar.png}" />
             </div>
             <div class="info">
-                <a data-toggle="collapse" href="#collapse" class="collapsed" th:text="${session.user.user_name}">
+                <a data-toggle="collapse" href="#collapse" class="collapsed">
+                    <span th:text="${session.user.user_name}"></span>
                     <b class="caret"></b>
                 </a>
                 <div class="collapse" id="collapse">
