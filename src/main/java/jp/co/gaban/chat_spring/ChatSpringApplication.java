@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"jp.co.gaban.chat_spring.domain"})
-@EnableJpaRepositories(basePackages = {"jp.co.gaban.chat_spring.domain"})
+@EntityScan(basePackages = {"jp.co.gaban.chat_spring.domain.model"})
+@EnableJpaRepositories(basePackages = {"jp.co.gaban.chat_spring.domain.repository"})
 @EnableTransactionManagement(proxyTargetClass = true)
 public class ChatSpringApplication {
 

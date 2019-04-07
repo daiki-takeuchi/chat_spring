@@ -22,9 +22,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     private final static String LOGIN_PAGE = "/login";
-    private final static String LOGIN_HTML = "login";
+    final static String LOGIN_HTML = "login";
     private final static String LOGOUT_PAGE = "/logout";
-    private final static String LOGOUT_HTML = "logout";
 
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -53,7 +52,7 @@ public class LoginController {
             }
             // 保存
             session.setAttribute("user", user);
-            return "redirect:" + LoginController.LOGIN_HTML;
+            return "redirect:";
         }
         return LoginController.LOGIN_HTML;
     }
@@ -62,6 +61,6 @@ public class LoginController {
     public String logout() {
         logger.debug("LoginController:[logout] Passing through...");
         session.invalidate();
-        return "redirect:" + LoginController.LOGOUT_HTML;
+        return "redirect:" + LoginController.LOGIN_HTML;
     }
 }

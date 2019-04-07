@@ -2,17 +2,15 @@ package jp.co.gaban.chat_spring.view;
 
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/06.
  */
 @Data
-public class LoginForm {
+public class PostForm {
     @NotBlank
-    @Email
-    private String mail;
-    @NotBlank
-    private String password;
+    @Size(min = 1, max = 128)
+    private String content;
 }
