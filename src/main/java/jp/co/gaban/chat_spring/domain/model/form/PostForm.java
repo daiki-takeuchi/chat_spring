@@ -1,5 +1,6 @@
-package jp.co.gaban.chat_spring.view;
+package jp.co.gaban.chat_spring.domain.model.form;
 
+import jp.co.gaban.chat_spring.domain.model.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -13,4 +14,6 @@ public class PostForm {
     @NotBlank
     @Size(min = 1, max = 128)
     private String content;
+
+    private User user;
 }

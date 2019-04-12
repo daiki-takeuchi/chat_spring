@@ -61,29 +61,11 @@
                                     <h4 class="card-title">Login</h4>
                                 </div>
                                 <div class="card-content">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">email</i>
-                                        </span>
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">メールアドレス
-                                                <star>*</star>
-                                            </label>
-                                            <input class="form-control" required="true" type="text" th:field="*{mail}" >
-                                            <span class="help-block with-errors"></span>
-                                        </div>
+                                    <div th:replace="fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})">
+                                        <input type="text" id="mail" email="true" class="form-control" required="true" th:field="*{mail}">
                                     </div>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">lock_outline</i>
-                                        </span>
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">パスワード
-                                                <star>*</star>
-                                            </label>
-                                            <input class="form-control" required="true" type="password" th:field="*{password}" >
-                                            <span class="help-block with-errors"></span>
-                                        </div>
+                                    <div th:replace="fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})">
+                                        <input type="password" id="password" class="form-control" required="true" th:field="*{password}">
                                     </div>
                                 </div>
                                 <div class="footer text-center">

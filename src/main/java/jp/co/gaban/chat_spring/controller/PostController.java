@@ -1,10 +1,8 @@
 package jp.co.gaban.chat_spring.controller;
 
-import javafx.geometry.Pos;
 import jp.co.gaban.chat_spring.domain.model.User;
 import jp.co.gaban.chat_spring.service.UserService;
-import jp.co.gaban.chat_spring.view.LoginForm;
-import jp.co.gaban.chat_spring.view.PostForm;
+import jp.co.gaban.chat_spring.domain.model.form.PostForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,17 +21,26 @@ import javax.servlet.http.HttpSession;
 public class PostController {
 
     private final static String ROOT_PAGE = "/";
-    final static String ROOT_HTML = "index";
+    private final static String ROOT_HTML = "post/index";
 
     private final static Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
+    private UserService userService;
+    @Autowired
     HttpSession session;
 
-    @RequestMapping(value = {PostController.ROOT_PAGE, "/" + PostController.ROOT_PAGE})
+    @RequestMapping(value = {PostController.ROOT_PAGE, "/index"})
     public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result) {
         logger.debug("PostController:[index] Passing through...");
         logger.debug("form:" + form.toString());
+        logger.debug("result:" + result.toString());
+
+        // 取得
+        User sessUser = (User)session.getAttribute("user");
+        User user = userService.findById(sessUser.getId());
+        form.setUser(user);
+
         return PostController.ROOT_HTML;
     }
 }

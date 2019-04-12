@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- helper.html -->
+    <div th:fragment="input(field_id, label, icons, required, input_element)" class="input-group">
+        <span th:if="${icons}" class="input-group-addon">
+            <i class="material-icons" th:text="${icons}"></i>
+        </span>
+        <div class="form-group label-floating" th:classappend="${#fields.hasErrors('__${field_id}__')}? 'has-error is-focused'">
+            <label class="control-label">
+                <div th:text="${label}" th:remove="tag"></div>
+                <star th:if="${required}">*</star>
+            </label>
+            <th:block th:replace="${input_element}"/>
+            <span class="help-block with-errors">
+                <p style="margin: 0;" class="has-error" th:each="error : ${#fields.errors('__${field_id}__')}"
+                   th:text="${error}">
+                </p>
+            </span>
+        </div>
+    </div>
+</body>
+</html>

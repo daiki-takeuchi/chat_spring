@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/06.
@@ -24,6 +25,11 @@ public class UserService implements Pagination {
 
     public User findByMail(String mail) {
         return userRepository.findByMail(mail);
+    }
+
+    public User findById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElseGet(User::new);
     }
 
     public void save(User user) {

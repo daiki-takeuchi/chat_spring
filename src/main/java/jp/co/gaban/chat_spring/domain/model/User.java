@@ -4,8 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import jp.co.gaban.chat_spring.domain.security.MyBCryptPasswordEncoder;
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/05.
@@ -54,4 +57,47 @@ public class User implements Serializable {
     @NotNull
     @Column(name="updated_user", nullable = false)
     private String updated_user;
+
+    @OneToMany(mappedBy = "follower")
+    private List<Following> follower;
+
+    @OneToMany(mappedBy = "following")
+    private List<Following> following;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    public boolean isFollowed(Long userId) {
+        for (Following follower : this.follower) {
+            if(follower.getUser_id().equals(userId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canLogin(String password) {
+        PasswordEncoder passwordEncoder = new MyBCryptPasswordEncoder(MyBCryptPasswordEncoder.BCryptVersion.$2B,12);
+        if(passwordEncoder.matches(password, this.password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "<User:" +
+                "'id='" + id +
+                "', user_name='" + user_name +
+                "', mail='" + mail +
+                "', password='" + password +
+                "', job='" + job +
+                "', self_introduction='" + self_introduction +
+                "', created_at='" + created_at.toString() +
+                "', created_user='" + created_user +
+                "', updated_at='" + updated_at.toString() +
+                "', updated_user='" + updated_user +
+                "'>";
+    }
 }
