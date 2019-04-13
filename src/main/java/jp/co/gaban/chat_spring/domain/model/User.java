@@ -5,10 +5,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import jp.co.gaban.chat_spring.domain.security.MyBCryptPasswordEncoder;
 import lombok.Data;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/05.
@@ -41,7 +43,6 @@ public class User implements Serializable {
     private String self_introduction;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
     @Column(name="created_at", nullable=false)
     private Date created_at;
 
@@ -50,7 +51,6 @@ public class User implements Serializable {
     private String created_user;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
     @Column(name="updated_at", nullable=false)
     private Date updated_at;
 
@@ -77,12 +77,39 @@ public class User implements Serializable {
     }
 
     public boolean canLogin(String password) {
-        PasswordEncoder passwordEncoder = new MyBCryptPasswordEncoder(MyBCryptPasswordEncoder.BCryptVersion.$2B,12);
-        if(passwordEncoder.matches(password, this.password)) {
-            return true;
-        } else {
-            return false;
+        MyBCryptPasswordEncoder passwordEncoder
+                = new MyBCryptPasswordEncoder(MyBCryptPasswordEncoder.BCryptVersion.$2B,12);
+        return passwordEncoder.matches(password, this.password);
+    }
+
+    public void setPassword(String rowPassword) {
+        MyBCryptPasswordEncoder passwordEncoder
+                = new MyBCryptPasswordEncoder(MyBCryptPasswordEncoder.BCryptVersion.$2B,12);
+        this.password = passwordEncoder.encode(rowPassword);
+    }
+
+    @PrePersist
+    public void prePersist() {
+        String createdUser = getUserName();
+        this.created_user = createdUser;
+        this.created_at = new Date();
+        this.updated_user = createdUser;
+        this.updated_at = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updated_user = getUserName();
+        this.updated_at = new Date();
+    }
+
+    private String getUserName() {
+        User sessUser = (User) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())
+                .getAttribute("user", RequestAttributes.SCOPE_SESSION);
+        if(sessUser != null) {
+            return sessUser.getUser_name();
         }
+        return this.user_name;
     }
 
     @Override
