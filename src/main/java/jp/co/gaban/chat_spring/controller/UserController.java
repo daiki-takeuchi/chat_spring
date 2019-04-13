@@ -2,6 +2,7 @@ package jp.co.gaban.chat_spring.controller;
 
 import jp.co.gaban.chat_spring.annotation.NonAuth;
 import jp.co.gaban.chat_spring.domain.model.User;
+import jp.co.gaban.chat_spring.domain.model.form.PostForm;
 import jp.co.gaban.chat_spring.domain.model.form.RegisterForm;
 import jp.co.gaban.chat_spring.service.UserService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,6 +26,8 @@ public class UserController {
 
     private final static String REGISTER_PAGE = "/register";
     private final static String REGISTER_HTML = "user/register";
+    private final static String DETAIL_PAGE = "/user";
+    private final static String DETAIL_HTML = "user/detail";
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -31,6 +35,13 @@ public class UserController {
     private UserService userService;
     @Autowired
     HttpSession session;
+
+    @RequestMapping(value = UserController.DETAIL_PAGE + "/{id}", method = RequestMethod.GET)
+    public String detail(@ModelAttribute("form") PostForm form, @PathVariable("id") Long id) {
+        User user = userService.findById(id);
+        form.setUser(user);
+        return UserController.DETAIL_HTML;
+    }
 
     @NonAuth
     @RequestMapping(value = UserController.REGISTER_PAGE, method = RequestMethod.GET)

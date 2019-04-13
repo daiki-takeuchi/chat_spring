@@ -68,8 +68,11 @@ public class User implements Serializable {
     private List<Post> posts;
 
     public boolean isFollowed(Long userId) {
-        for (Following follower : this.follower) {
-            if(follower.getUser_id().equals(userId)) {
+        System.out.println("following:" + this.following);
+        for (Following following : this.following) {
+            System.out.println("userId:" + userId);
+            System.out.println("getUser_id:" + following.getUser_id());
+            if(following.getUser_id().equals(userId)) {
                 return true;
             }
         }

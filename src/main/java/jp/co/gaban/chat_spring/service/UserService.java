@@ -3,10 +3,12 @@ package jp.co.gaban.chat_spring.service;
 import jp.co.gaban.chat_spring.domain.model.User;
 import jp.co.gaban.chat_spring.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,8 +21,9 @@ public class UserService implements Pagination {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Iterable<User> findAll(int page, int size, String sort) {
+        Pageable pager = PageRequest.of(currentPage(page), size, Sort.Direction.ASC, sort);
+        return userRepository.findAll(pager);
     }
 
     public User findByMail(String mail) {
