@@ -64,13 +64,13 @@ public class UserController {
         User user = userService.findById(id);
         form.setUser(user);
         model.addAttribute("user", user);
-        model.addAttribute("jobItems", form.JOB_ITEMS);
+        model.addAttribute("jobItems", ProfileWizardForm.JOB_ITEMS);
 
         return UserController.PROFILE_HTML;
     }
 
     @RequestMapping(value = UserController.PROFILE_PAGE, method = RequestMethod.POST)
-    public String profile(@ModelAttribute("form") ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id, Model model) {
+    public String profile(@ModelAttribute("form") ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id) {
         User user = userService.findById(id);
 
         if(!result.hasErrors()) {
