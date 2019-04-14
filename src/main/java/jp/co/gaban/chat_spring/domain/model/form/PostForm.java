@@ -14,6 +14,4 @@ public class PostForm {
     @NotBlank
     @Size(min = 1, max = 128)
     private String content;
-
-    private User user;
 }

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,15 +32,14 @@ public class PostController {
     HttpSession session;
 
     @RequestMapping(value = {PostController.ROOT_PAGE, "/index"})
-    public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result) {
+    public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result, Model model) {
         logger.debug("PostController:[index] Passing through...");
         logger.debug("form:" + form.toString());
         logger.debug("result:" + result.toString());
 
-        // 取得
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
-        form.setUser(user);
+        model.addAttribute("user", user);
 
         return PostController.ROOT_HTML;
     }
