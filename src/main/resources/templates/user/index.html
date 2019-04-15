@@ -69,39 +69,33 @@
                             <h4 class="card-title">User</h4>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {% if pagination %}
-                                    {% if pagination.total > pagination.per_page %}
-                                    {{ p.pagination_widget(pagination,'.index', user_name=request.args.get('user_name', '')) }}
-                                    {% endif %}
-                                    {% endif %}
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" th:if="${result.getTotalElements() > 10}">
+                                        <div th:replace="fragments/helper::pagination(${__result__}, '/user', 'user_name=')">
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive" th:if="${result}">
                                         <table class="table table-hover">
                                             <tbody>
-                                            {% for user in pagination.items %}
-                                            <tr>
+                                            <tr th:each="user, status : ${result}" th:object="${user}">
                                                 <td width="40px">
                                                     <div>
                                                         <img class="img-circle" th:src="@{/img/default-avatar.png}">
                                                     </div>
                                                 </td>
                                                 <td width="100px">
-                                                    <a th:href="|/profile/1|" th:text="${session.user.user_name}"></a>
+                                                    <a th:href="|/profile/${user.id}|" th:text="${user.user_name}"></a>
                                                 </td>
                                                 <td class="td-actions text-right">
-                                                    {% if session.user.id != user.id %}
-                                                    {% if user.is_followed(session.user.id) %}
-                                                    <a th:href="|/unfollow/1|" class="btn btn-simple btn-rose">
+                                                    <div th:if="${session.user.id != user.id}" th:remove="tag">
+                                                    <a th:href="|/unfollow/${user.id}|" class="btn btn-simple btn-rose" th:if="${user.isFollowed(__${session.user.id}__)}">
                                                         <i class="material-icons">favorite</i>
                                                     </a>
-                                                    {% else %}
-                                                    <a th:href="|/follow/1|" class="btn btn-simple btn-rose">
+                                                    <a th:href="|/follow/${user.id}|" class="btn btn-simple btn-rose" th:unless="${user.isFollowed(__${session.user.id}__)}">
                                                         <i class="material-icons">favorite_border</i>
                                                     </a>
-                                                    {% endif %}
-                                                    {% endif %}
+                                                    </div>
                                                 </td>
                                             </tr>
-                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

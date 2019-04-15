@@ -17,7 +17,7 @@ public interface Pagination {
         int calcPage = max / pageSize;
         if (max % pageSize != 0) {
             calcPage++;
-        };
+        }
         return calcPage;
     }
 

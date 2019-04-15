@@ -47,7 +47,11 @@ public class UserController {
 
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
+
+        Iterable<User> result = userService.findAll(1, 10, "id");
+
         model.addAttribute("user", user);
+        model.addAttribute("result", result);
 
         return UserController.INDEX_HTML;
     }

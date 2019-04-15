@@ -19,5 +19,21 @@
             </span>
         </div>
     </div>
+
+    <ul th:fragment="pagination(pagination, url, para)" class="pagination pagination-sm no-margin">
+        <li th:classappend="${pagination.hasPrevious()}? 'disabled'">
+            <a th:href="${pagination.hasPrevious()}? ${url}">
+                &laquo;
+            </a>
+        </li>
+        <li th:each="i : ${#numbers.sequence(1, pagination.getTotalPages())}" th:classappend="${pagination.getNumber() == i-1}? 'active'">
+            <a th:href="|${url}/page=${i}?${para}|" th:text="${i}"></a>
+        </li>
+        <li th:classappend="${pagination.hasNext()}? _:'disabled'">
+            <a th:href="${pagination.hasNext()}? ${url}:'#'">
+                &raquo;
+            </a>
+        </li>
+    </ul>
 </body>
 </html>
