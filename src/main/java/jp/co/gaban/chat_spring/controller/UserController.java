@@ -1,10 +1,12 @@
 package jp.co.gaban.chat_spring.controller;
 
 import jp.co.gaban.chat_spring.annotation.NonAuth;
+import jp.co.gaban.chat_spring.domain.model.Post;
 import jp.co.gaban.chat_spring.domain.model.User;
 import jp.co.gaban.chat_spring.domain.model.form.PostForm;
 import jp.co.gaban.chat_spring.domain.model.form.ProfileWizardForm;
 import jp.co.gaban.chat_spring.domain.model.form.RegisterForm;
+import jp.co.gaban.chat_spring.service.PostService;
 import jp.co.gaban.chat_spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private PostService postService;
+    @Autowired
     HttpSession session;
 
     @RequestMapping(value = UserController.INDEX_PAGE, method = RequestMethod.GET)
@@ -59,7 +63,12 @@ public class UserController {
     @RequestMapping(value = UserController.DETAIL_PAGE, method = RequestMethod.GET)
     public String detail(@ModelAttribute("form") PostForm form, @PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
+
+        Iterable<Post> posts = postService.findAll(1, 10, "id");
+
         model.addAttribute("user", user);
+        model.addAttribute("posts", posts);
+
         return UserController.DETAIL_HTML;
     }
 

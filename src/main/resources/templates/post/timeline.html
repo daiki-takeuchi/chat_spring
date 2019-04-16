@@ -9,34 +9,30 @@
         <h4 class="card-title">Timeline</h4>
         <div class="row">
             <div class="col-md-12">
-                {% if timelines %}
-                {% if timelines.total > timelines.per_page %}
-                {{ p.pagination_widget(timelines,'.page') }}
-                {% endif %}
-                {% endif %}
+                <div class="table-responsive" th:if="${posts.getTotalElements() > 10}">
+                    <div th:replace="fragments/helper::pagination(${__posts__}, '', '')"></div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <tbody>
-                        {% for timeline in timelines.items %}
-                        <tr>
+                        <tr th:each="post, status : ${posts}" th:object="${post}">
                             <td style="width:50px;">
                                 <div>
                                     <img class="img-circle" th:src="@{/img/default-avatar.png}">
                                 </div>
                             </td>
                             <td style="white-space:normal;font-size: small;">
-                                <p style="margin: 0;font-weight: bold;"><a th:href="@{|/user/1|}">{{ timeline.user.user_name }}</a></p>
-                                <p style="margin: 0;">{{ timeline.content }}</p>
+                                <p style="margin: 0;font-weight: bold;">
+                                    <a th:href="|/user/${post.user_id}|" th:text="${post.user.user_name}"></a>
+                                </p>
+                                <p style="margin: 0;" th:text="${post.content}"></p>
                             </td>
                             <td style="white-space:normal;" class="td-actions text-right">
-                                {% if timeline.user_id == session.user.id %}
-                                <a th:href="@{/delete/1}" rel="tooltip" class="btn btn-danger">
+                                <a th:href="|/delete/${post.id}|" rel="tooltip" class="btn btn-danger" th:if="${post.user_id == session.user.id}">
                                     <i class="material-icons">close</i>
                                 </a>
-                                {% endif %}
                             </td>
                         </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

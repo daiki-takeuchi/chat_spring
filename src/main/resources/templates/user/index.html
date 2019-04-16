@@ -70,10 +70,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive" th:if="${result.getTotalElements() > 10}">
-                                        <div th:replace="fragments/helper::pagination(${__result__}, '/user', 'user_name=')">
-                                        </div>
+                                        <div th:replace="fragments/helper::pagination(${__result__}, '/user', 'user_name=')"></div>
                                     </div>
-                                    <div class="table-responsive" th:if="${result}">
+                                    <div class="table-responsive">
                                         <table class="table table-hover">
                                             <tbody>
                                             <tr th:each="user, status : ${result}" th:object="${user}">
@@ -83,14 +82,14 @@
                                                     </div>
                                                 </td>
                                                 <td width="100px">
-                                                    <a th:href="|/profile/${user.id}|" th:text="${user.user_name}"></a>
+                                                    <a th:href="|/user/*{id}|" th:text="*{user_name}"></a>
                                                 </td>
                                                 <td class="td-actions text-right">
                                                     <div th:if="${session.user.id != user.id}" th:remove="tag">
-                                                    <a th:href="|/unfollow/${user.id}|" class="btn btn-simple btn-rose" th:if="${user.isFollowed(__${session.user.id}__)}">
+                                                    <a th:href="|/unfollow/*{id}|" class="btn btn-simple btn-rose" th:if="${user.isFollowed(__${session.user.id}__)}">
                                                         <i class="material-icons">favorite</i>
                                                     </a>
-                                                    <a th:href="|/follow/${user.id}|" class="btn btn-simple btn-rose" th:unless="${user.isFollowed(__${session.user.id}__)}">
+                                                    <a th:href="|/follow/*{id}|" class="btn btn-simple btn-rose" th:unless="${user.isFollowed(__${session.user.id}__)}">
                                                         <i class="material-icons">favorite_border</i>
                                                     </a>
                                                     </div>
