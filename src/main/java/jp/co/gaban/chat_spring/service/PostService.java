@@ -25,12 +25,12 @@ public class PostService implements Pagination {
     PostRepository postRepository;
 
     public Iterable<Post> findAll(int page, String sort) {
-        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.ASC, sort);
+        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.DESC, sort);
         return postRepository.findAll(pager);
     }
 
     public Iterable<Post> findByUserId(Long userId, int page, String sort) {
-        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.ASC, sort);
+        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.DESC, sort);
         return postRepository.findByUserId(userId, pager);
     }
 

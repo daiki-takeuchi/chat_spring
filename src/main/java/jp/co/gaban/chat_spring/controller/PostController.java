@@ -60,17 +60,31 @@ public class PostController {
         return PostController.ROOT_HTML;
     }
 
-    @RequestMapping(value = {PostController.ROOT_PAGE, "/index"}, method = RequestMethod.POST)
-    public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result, Model model) {
+    @RequestMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE}, method = RequestMethod.POST)
+    public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result, Model model, @PathVariable("page") Optional<Integer> argPage) {
         logger.debug("PostController:[index] Passing through...");
         logger.debug("form:" + form.toString());
         logger.debug("result:" + result.toString());
 
+        int page = 1;
+        if(argPage.isPresent()) {
+            page = argPage.get();
+        }
+
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
 
-        Iterable<Post> posts = postService.findAll(1,"id");
+        Iterable<Post> posts = postService.findAll(page,"id");
 
+        if(!result.hasErrors()) {
+            // 登録処理
+            Post post = new Post();
+            post.setContent(form.getContent());
+            post.setUserId(user.getId());
+            postService.save(post);
+
+            return "redirect:/";
+        }
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);
 
