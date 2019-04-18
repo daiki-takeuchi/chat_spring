@@ -23,28 +23,28 @@ public class Following implements Serializable {
 
     @NotNull
     @Column(name="user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(name="following_id", nullable = false)
-    private Long following_id;
+    private Long followingId;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name="created_at", nullable=false)
-    private Date created_at;
+    private Date createdAt;
 
     @NotNull
     @Column(name="created_user", nullable = false)
-    private String created_user;
+    private String createdUser;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name="updated_at", nullable=false)
-    private Date updated_at;
+    private Date updatedAt;
 
     @NotNull
     @Column(name="updated_user", nullable = false)
-    private String updated_user;
+    private String updatedUser;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(nullable = false, insertable=false, updatable=false, name = "user_id")
@@ -58,14 +58,14 @@ public class Following implements Serializable {
     public String toString() {
         return "<Following:" +
                 "'id='" + id +
-                "', user_id='" + user_id +
-                "', following_id='" + following_id +
+                "', userId='" + userId +
+                "', followingId='" + followingId +
                 "', follower='" + follower.toString() +
                 "', following='" + following.toString() +
-                "', created_at='" + created_at.toString() +
-                "', created_user='" + created_user +
-                "', updated_at='" + updated_at.toString() +
-                "', updated_user='" + updated_user +
+                "', createdAt='" + createdAt.toString() +
+                "', createdUser='" + createdUser +
+                "', updatedAt='" + updatedAt.toString() +
+                "', updatedUser='" + updatedUser +
                 "'>";
     }
 }

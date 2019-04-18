@@ -40,23 +40,23 @@ public class User implements Serializable {
     private String job;
 
     @Column(name="self_introduction")
-    private String self_introduction;
+    private String selfIntroduction;
 
     @NotNull
     @Column(name="created_at", nullable=false)
-    private Date created_at;
+    private Date createdAt;
 
     @NotNull
     @Column(name="created_user", nullable = false)
-    private String created_user;
+    private String createdUser;
 
     @NotNull
     @Column(name="updated_at", nullable=false)
-    private Date updated_at;
+    private Date updatedAt;
 
     @NotNull
     @Column(name="updated_user", nullable = false)
-    private String updated_user;
+    private String updatedUser;
 
     @OneToMany(mappedBy = "follower")
     private List<Following> follower;
@@ -70,9 +70,7 @@ public class User implements Serializable {
     public boolean isFollowed(Long userId) {
         System.out.println("following:" + this.following);
         for (Following following : this.following) {
-            System.out.println("userId:" + userId);
-            System.out.println("getUser_id:" + following.getUser_id());
-            if(following.getUser_id().equals(userId)) {
+            if(following.getUserId().equals(userId)) {
                 return true;
             }
         }
@@ -93,20 +91,20 @@ public class User implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        String createdUser = getModifyUserName();
-        this.created_user = createdUser;
-        this.created_at = new Date();
-        this.updated_user = createdUser;
-        this.updated_at = new Date();
+        String createdUser = getLoginUserName();
+        this.createdUser = createdUser;
+        this.createdAt = new Date();
+        this.updatedUser = createdUser;
+        this.updatedAt = new Date();
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.updated_user = getModifyUserName();
-        this.updated_at = new Date();
+        this.updatedUser = getLoginUserName();
+        this.updatedAt = new Date();
     }
 
-    private String getModifyUserName() {
+    private String getLoginUserName() {
         User sessUser = (User) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())
                 .getAttribute("user", RequestAttributes.SCOPE_SESSION);
         if(sessUser != null) {
@@ -123,11 +121,11 @@ public class User implements Serializable {
                 "', mail='" + mail +
                 "', password='" + password +
                 "', job='" + job +
-                "', self_introduction='" + self_introduction +
-                "', created_at='" + created_at.toString() +
-                "', created_user='" + created_user +
-                "', updated_at='" + updated_at.toString() +
-                "', updated_user='" + updated_user +
+                "', selfIntroduction='" + selfIntroduction +
+                "', createdAt='" + createdAt.toString() +
+                "', createdUser='" + createdUser +
+                "', updatedAt='" + updatedAt.toString() +
+                "', updatedUser='" + updatedUser +
                 "'>";
     }
 }

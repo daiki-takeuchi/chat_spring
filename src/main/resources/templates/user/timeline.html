@@ -23,12 +23,12 @@
                             </td>
                             <td style="white-space:normal;font-size: small;">
                                 <p style="margin: 0;font-weight: bold;">
-                                    <a th:href="|/user/${post.user_id}|" th:text="${post.user.userName}"></a>
+                                    <a th:href="|/user/${post.userId}|" th:text="${post.user.userName}"></a>
                                 </p>
                                 <p style="margin: 0;" th:text="${post.content}"></p>
                             </td>
                             <td style="white-space:normal;" class="td-actions text-right">
-                                <a th:href="|/delete/${post.id}|" rel="tooltip" class="btn btn-danger" th:if="${post.user_id == session.user.id}">
+                                <a th:href="|/delete/${post.id}|" rel="tooltip" class="btn btn-danger" th:if="${post.userId == session.user.id}">
                                     <i class="material-icons">close</i>
                                 </a>
                             </td>

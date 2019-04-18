@@ -70,8 +70,8 @@
                                             <div th:replace="fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})">
                                                 <input type="password" id="password" class="form-control" required="true" th:field="*{password}">
                                             </div>
-                                            <div th:replace="fragments/helper::input('password_confirmation', 'パスワードの確認', 'lock_outline', 'true', ~{:: #password_confirmation})">
-                                                <input type="password" id="password_confirmation" class="form-control" required="true" th:field="*{password_confirmation}">
+                                            <div th:replace="fragments/helper::input('passwordConfirmation', 'パスワードの確認', 'lock_outline', 'true', ~{:: #passwordConfirmation})">
+                                                <input type="password" id="passwordConfirmation" class="form-control" required="true" th:field="*{passwordConfirmation}">
                                             </div>
                                         </div>
                                         <div class="footer text-center">

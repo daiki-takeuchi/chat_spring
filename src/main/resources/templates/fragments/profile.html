@@ -10,7 +10,7 @@
     <div class="card-content">
         <h6 class="category text-gray" th:text="${user.job}"></h6>
         <h4 class="card-title" th:text="${user.userName}"></h4>
-        <p class="description" th:text="${user.self_introduction}"></p>
+        <p class="description" th:text="${user.selfIntroduction}"></p>
 
         <a th:if="${session.user.id} == ${user.id}" th:href="|/profile/${user.id}|" class="btn btn-rose btn-round">
             プロフィールを編集

@@ -25,14 +25,14 @@ public class ProfileWizardForm {
 
     private String[] job;
 
-    private String self_introduction;
+    private String selfIntroduction;
 
     public void setUser(User user) {
         String job = user.getJob();
         this.userName = user.getUserName();
         this.mail = user.getMail();
         this.job = job != null? job.split(" / ", 0): new String[0];
-        this.self_introduction = user.getSelf_introduction();
+        this.selfIntroduction = user.getSelfIntroduction();
     }
 
     public final static Map<String, String> JOB_ITEMS =

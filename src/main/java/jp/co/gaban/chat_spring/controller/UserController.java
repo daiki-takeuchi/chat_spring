@@ -109,7 +109,7 @@ public class UserController {
             // 登録処理
             user.setUserName(form.getUserName());
             user.setMail(form.getMail());
-            user.setSelf_introduction(form.getSelf_introduction());
+            user.setSelfIntroduction(form.getSelfIntroduction());
             user.setJob(String.join(" / ", form.getJob()));
 
             userService.save(user);

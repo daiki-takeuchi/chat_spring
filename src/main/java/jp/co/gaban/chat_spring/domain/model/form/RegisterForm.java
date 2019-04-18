@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * Created by DaikiTakeuchi on 2019/04/06.
  */
 @Data
-@EqualTo(firstField = "password", secondField = "password_confirmation", message = "{PasswordUnMach}")
+@EqualTo(firstField = "password", secondField = "passwordConfirmation", message = "{PasswordUnMach}")
 public class RegisterForm {
     @NotBlank(message = "{userName}{NotBlank}")
     private String userName;
@@ -24,6 +24,6 @@ public class RegisterForm {
     @NotBlank(message = "{password}{NotBlank}")
     private String password;
 
-    @NotBlank(message = "{password_confirmation}{NotBlank}")
-    private String password_confirmation;
+    @NotBlank(message = "{passwordConfirmation}{NotBlank}")
+    private String passwordConfirmation;
 }
