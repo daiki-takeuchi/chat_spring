@@ -30,8 +30,10 @@ public class UserController {
     private final static String REGISTER_HTML = "user/register";
     private final static String DETAIL_PAGE = "/user/{id}";
     private final static String DETAIL_HTML = "user/detail";
+    private final static String DETAIL_PAGER_PAGE = "/user/{id}/page/{page}";
     private final static String INDEX_PAGE = "/user";
     private final static String INDEX_HTML = "user/index";
+    private final static String INDEX_PAGER_PAGE = "/user/page/{page}";
     private final static String PROFILE_PAGE = "/profile/{id}";
     private final static String PROFILE_HTML = "user/profile_wizard";
 
@@ -44,15 +46,25 @@ public class UserController {
     @Autowired
     HttpSession session;
 
-    @RequestMapping(value = UserController.INDEX_PAGE, method = RequestMethod.GET)
-    public String index(@ModelAttribute("form") PostForm form, @RequestParam("user_name") Optional<String> user_name, Model model) {
+    @RequestMapping(value = {UserController.INDEX_PAGE, UserController.INDEX_PAGER_PAGE}, method = RequestMethod.GET)
+    public String index(@ModelAttribute("form") PostForm form, @RequestParam("user_name") Optional<String> argUserName, Model model, @PathVariable("page") Optional<Integer> argPage) {
         logger.debug("UserController:[index] Passing through...");
         logger.debug("form:" + form.toString());
+
+        int page = 1;
+        if(argPage.isPresent()) {
+            page = argPage.get();
+        }
+
+        String userName = "";
+        if(argUserName.isPresent()) {
+            userName = argUserName.get();
+        }
 
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
 
-        Iterable<User> result = userService.findAll(1, 10, "id");
+        Iterable<User> result = userService.findByUserName(userName, page, "id");
 
         model.addAttribute("user", user);
         model.addAttribute("result", result);
@@ -60,11 +72,18 @@ public class UserController {
         return UserController.INDEX_HTML;
     }
 
-    @RequestMapping(value = UserController.DETAIL_PAGE, method = RequestMethod.GET)
-    public String detail(@ModelAttribute("form") PostForm form, @PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
+    @RequestMapping(value = {UserController.DETAIL_PAGE, UserController.DETAIL_PAGER_PAGE}, method = RequestMethod.GET)
+    public String detail(@ModelAttribute("form") PostForm form, @PathVariable("id") Long id, Model model, @PathVariable("page") Optional<Integer> argPage) {
+        logger.debug("UserController:[detail] Passing through...");
+        logger.debug("form:" + form.toString());
 
-        Iterable<Post> posts = postService.findAll(1, 10, "id");
+        int page = 1;
+        if(argPage.isPresent()) {
+            page = argPage.get();
+        }
+
+        User user = userService.findById(id);
+        Iterable<Post> posts = postService.findByUserId(id, page, "id");
 
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);
@@ -88,7 +107,7 @@ public class UserController {
 
         if(!result.hasErrors()) {
             // 登録処理
-            user.setUser_name(form.getUser_name());
+            user.setUserName(form.getUserName());
             user.setMail(form.getMail());
             user.setSelf_introduction(form.getSelf_introduction());
             user.setJob(String.join(" / ", form.getJob()));
@@ -118,7 +137,7 @@ public class UserController {
         if(!result.hasErrors()) {
             // 登録処理
             User user = new User();
-            user.setUser_name(form.getUser_name());
+            user.setUserName(form.getUserName());
             user.setMail(form.getMail());
             user.setPassword(form.getPassword());
 

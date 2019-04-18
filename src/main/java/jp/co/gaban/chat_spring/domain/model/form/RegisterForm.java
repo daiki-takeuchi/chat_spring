@@ -13,8 +13,8 @@ import javax.validation.constraints.NotBlank;
 @Data
 @EqualTo(firstField = "password", secondField = "password_confirmation", message = "{PasswordUnMach}")
 public class RegisterForm {
-    @NotBlank(message = "{user_name}{NotBlank}")
-    private String user_name;
+    @NotBlank(message = "{userName}{NotBlank}")
+    private String userName;
 
     @NotBlank(message = "{mail}{NotBlank}")
     @Email

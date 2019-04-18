@@ -61,8 +61,8 @@
                                 <div class="col-md-12">
                                     <form class="form" id="form" method="post" data-toggle="validator" th:object="${form}">
                                         <div class="card-content">
-                                            <div th:replace="fragments/helper::input('user_name', 'ユーザー名', 'face', 'true', ~{:: #user_name})">
-                                                <input type="text" id="user_name" class="form-control" required="true" th:field="*{user_name}">
+                                            <div th:replace="fragments/helper::input('userName', 'ユーザー名', 'face', 'true', ~{:: #userName})">
+                                                <input type="text" id="userName" class="form-control" required="true" th:field="*{userName}">
                                             </div>
                                             <div th:replace="fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})">
                                                 <input type="text" id="mail" email="true" class="form-control" required="true" th:field="*{mail}">

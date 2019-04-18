@@ -15,8 +15,8 @@ import java.util.Map;
  */
 @Data
 public class ProfileWizardForm {
-    @NotBlank(message = "{user_name}{NotBlank}")
-    private String user_name;
+    @NotBlank(message = "{userName}{NotBlank}")
+    private String userName;
 
     @NotBlank(message = "{mail}{NotBlank}")
     @Email
@@ -29,7 +29,7 @@ public class ProfileWizardForm {
 
     public void setUser(User user) {
         String job = user.getJob();
-        this.user_name = user.getUser_name();
+        this.userName = user.getUserName();
         this.mail = user.getMail();
         this.job = job != null? job.split(" / ", 0): new String[0];
         this.self_introduction = user.getSelf_introduction();

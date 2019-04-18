@@ -13,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/05.
@@ -26,6 +28,7 @@ public class PostController {
 
     private final static String ROOT_PAGE = "/";
     private final static String ROOT_HTML = "post/index";
+    private final static String ROOT_PAGER_PAGE = "/page/{page}";
 
     private final static Logger logger = LoggerFactory.getLogger(PostController.class);
 
@@ -36,15 +39,20 @@ public class PostController {
     @Autowired
     HttpSession session;
 
-    @RequestMapping(value = {PostController.ROOT_PAGE, "/index"}, method = RequestMethod.GET)
-    public String index(@ModelAttribute("form") PostForm form, Model model) {
+    @RequestMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE}, method = RequestMethod.GET)
+    public String index(@ModelAttribute("form") PostForm form, Model model, @PathVariable("page") Optional<Integer> argPage) {
         logger.debug("PostController:[index] Passing through...");
         logger.debug("form:" + form.toString());
+
+        int page = 1;
+        if(argPage.isPresent()) {
+            page = argPage.get();
+        }
 
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
 
-        Iterable<Post> posts = postService.findAll(1, 10, "id");
+        Iterable<Post> posts = postService.findAll(page,"id");
 
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);
@@ -61,7 +69,7 @@ public class PostController {
         User sessUser = (User)session.getAttribute("user");
         User user = userService.findById(sessUser.getId());
 
-        Iterable<Post> posts = postService.findAll(1, 10, "id");
+        Iterable<Post> posts = postService.findAll(1,"id");
 
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);

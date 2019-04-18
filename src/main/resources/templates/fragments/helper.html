@@ -23,7 +23,10 @@
     <!-- pagination -->
     <ul th:fragment="pagination(pagination, url, para)" class="pagination pagination-sm no-margin">
         <li th:classappend="${pagination.hasPrevious()}? _:'disabled'">
-            <a th:href="${pagination.hasPrevious()}? ${url}">
+            <a th:if="${pagination.hasPrevious()}" th:href="${para != ''}? |${url}/page/${pagination.getNumber()}?${para}|: |${url}/page/${pagination.getNumber()}|">
+                &laquo;
+            </a>
+            <a th:unless="${pagination.hasPrevious()}" href='#'>
                 &laquo;
             </a>
         </li>
@@ -31,7 +34,10 @@
             <a th:href="${para != ''}? |${url}/page/${i}?${para}|: |${url}/page/${i}|" th:text="${i}"></a>
         </li>
         <li th:classappend="${pagination.hasNext()}? _:'disabled'">
-            <a th:href="${para != ''}? |${url}/page/${pagination.getNumber()+2}?${para}|: |${url}/page/${pagination.getNumber()+2}|">
+            <a th:if="${pagination.hasNext()}" th:href="${para != ''}? |${url}/page/${pagination.getNumber()+2}?${para}|: |${url}/page/${pagination.getNumber()+2}|">
+                &raquo;
+            </a>
+            <a th:unless="${pagination.hasNext()}" href='#'>
                 &raquo;
             </a>
         </li>

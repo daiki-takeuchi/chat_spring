@@ -28,7 +28,7 @@ public class User implements Serializable {
 
     @NotNull
     @Column(name="user_name", nullable = false)
-    private String user_name;
+    private String userName;
 
     @Column(name="mail", unique = true)
     private String mail;
@@ -93,7 +93,7 @@ public class User implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        String createdUser = getUserName();
+        String createdUser = getModifyUserName();
         this.created_user = createdUser;
         this.created_at = new Date();
         this.updated_user = createdUser;
@@ -102,24 +102,24 @@ public class User implements Serializable {
 
     @PreUpdate
     public void preUpdate() {
-        this.updated_user = getUserName();
+        this.updated_user = getModifyUserName();
         this.updated_at = new Date();
     }
 
-    private String getUserName() {
+    private String getModifyUserName() {
         User sessUser = (User) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())
                 .getAttribute("user", RequestAttributes.SCOPE_SESSION);
         if(sessUser != null) {
-            return sessUser.getUser_name();
+            return sessUser.getUserName();
         }
-        return this.user_name;
+        return this.userName;
     }
 
     @Override
     public String toString() {
         return "<User:" +
                 "'id='" + id +
-                "', user_name='" + user_name +
+                "', userName='" + userName +
                 "', mail='" + mail +
                 "', password='" + password +
                 "', job='" + job +

@@ -82,7 +82,7 @@
                                                     </div>
                                                 </td>
                                                 <td width="100px">
-                                                    <a th:href="|/user/*{id}|" th:text="*{user_name}"></a>
+                                                    <a th:href="|/user/*{id}|" th:text="*{userName}"></a>
                                                 </td>
                                                 <td class="td-actions text-right">
                                                     <div th:if="${session.user.id != user.id}" th:remove="tag">

@@ -18,12 +18,22 @@ import java.util.Optional;
 @EnableTransactionManagement
 public class UserService implements Pagination {
 
+    private static final int PAGE_SIZE = 10;
+
     @Autowired
     UserRepository userRepository;
 
-    public Iterable<User> findAll(int page, int size, String sort) {
-        Pageable pager = PageRequest.of(currentPage(page), size, Sort.Direction.ASC, sort);
+    public Iterable<User> findAll(int page, String sort) {
+        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.ASC, sort);
         return userRepository.findAll(pager);
+    }
+
+    public Iterable<User> findByUserName(String userName, int page, String sort) {
+        Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.ASC, sort);
+        if(userName.equals("")) {
+            return findAll(page, sort);
+        }
+        return userRepository.findByUserNameContaining(userName, pager);
     }
 
     public User findByMail(String mail) {
