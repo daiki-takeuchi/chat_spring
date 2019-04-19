@@ -29,6 +29,7 @@ public class PostController {
     private final static String ROOT_PAGE = "/";
     private final static String ROOT_HTML = "post/index";
     private final static String ROOT_PAGER_PAGE = "/page/{page}";
+    private final static String DELETE_PAGE = "/delete/{id}";
 
     private final static Logger logger = LoggerFactory.getLogger(PostController.class);
 
@@ -89,5 +90,18 @@ public class PostController {
         model.addAttribute("posts", posts);
 
         return PostController.ROOT_HTML;
+    }
+
+    @RequestMapping(value = PostController.DELETE_PAGE, method = RequestMethod.GET)
+    public String delete(@PathVariable("id") long id) {
+        logger.debug("PostController:[delete] Passing through...");
+
+        User sessUser = (User)session.getAttribute("user");
+        Post post = postService.findById(id);
+
+        if(post != null && post.getUserId().equals(sessUser.getId())) {
+            postService.delete(post);
+        }
+        return "redirect:/";
     }
 }

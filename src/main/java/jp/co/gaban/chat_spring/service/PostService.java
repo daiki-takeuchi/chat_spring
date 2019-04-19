@@ -29,6 +29,11 @@ public class PostService implements Pagination {
         return postRepository.findAll(pager);
     }
 
+    public Post findById(Long id) {
+        Optional<Post> postOptional = postRepository.findById(id);
+        return postOptional.orElseGet(Post::new);
+    }
+
     public Iterable<Post> findByUserId(Long userId, int page, String sort) {
         Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.DESC, sort);
         return postRepository.findByUserId(userId, pager);
@@ -36,5 +41,9 @@ public class PostService implements Pagination {
 
     public void save(Post post) {
         postRepository.save(post);
+    }
+
+    public void delete(Post post) {
+        postRepository.delete(post);
     }
 }
