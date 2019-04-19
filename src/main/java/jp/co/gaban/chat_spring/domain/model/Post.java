@@ -71,10 +71,8 @@ public class Post implements Serializable {
     private String getLoginUserName() {
         User sessUser = (User) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())
                 .getAttribute("user", RequestAttributes.SCOPE_SESSION);
-        if(sessUser != null) {
-            return sessUser.getUserName();
-        }
-        return user.getUserName();
+        assert sessUser != null;
+        return sessUser.getUserName();
     }
 
     @Override

@@ -1,11 +1,14 @@
 package jp.co.gaban.chat_spring.domain.model;
 
 import lombok.Data;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/05.
@@ -53,6 +56,28 @@ public class Following implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(nullable = false, insertable=false, updatable=false, name = "following_id")
     private User following;
+
+    @PrePersist
+    public void prePersist() {
+        String createdUser = getLoginUserName();
+        this.createdUser = createdUser;
+        this.createdAt = new Date();
+        this.updatedUser = createdUser;
+        this.updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedUser = getLoginUserName();
+        this.updatedAt = new Date();
+    }
+
+    private String getLoginUserName() {
+        User sessUser = (User) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())
+                .getAttribute("user", RequestAttributes.SCOPE_SESSION);
+        assert sessUser != null;
+        return sessUser.getUserName();
+    }
 
     @Override
     public String toString() {
