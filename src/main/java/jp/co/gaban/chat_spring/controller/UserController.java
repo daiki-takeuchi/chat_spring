@@ -39,12 +39,16 @@ public class UserController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private final UserService userService;
+    private final PostService postService;
+    private final HttpSession session;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private PostService postService;
-    @Autowired
-    HttpSession session;
+    public UserController(UserService userService, PostService postService, HttpSession session) {
+        this.userService = userService;
+        this.postService = postService;
+        this.session = session;
+    }
 
     @RequestMapping(value = {UserController.INDEX_PAGE, UserController.INDEX_PAGER_PAGE}, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") PostForm form, @RequestParam("user_name") Optional<String> argUserName, Model model, @PathVariable("page") Optional<Integer> argPage) {

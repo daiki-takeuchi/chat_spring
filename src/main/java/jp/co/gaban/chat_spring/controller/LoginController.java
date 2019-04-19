@@ -28,10 +28,14 @@ public class LoginController {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    private final UserService userService;
+    private final HttpSession session;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    HttpSession session;
+    public LoginController(UserService userService, HttpSession session) {
+        this.userService = userService;
+        this.session = session;
+    }
 
     @NonAuth
     @RequestMapping(value = LoginController.LOGIN_PAGE, method = RequestMethod.GET)

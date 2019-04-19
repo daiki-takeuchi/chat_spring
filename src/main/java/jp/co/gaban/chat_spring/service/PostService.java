@@ -21,8 +21,12 @@ public class PostService implements Pagination {
 
     private static final int PAGE_SIZE = 10;
 
+    private final PostRepository postRepository;
+
     @Autowired
-    PostRepository postRepository;
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     public Iterable<Post> findAll(int page, String sort) {
         Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.DESC, sort);

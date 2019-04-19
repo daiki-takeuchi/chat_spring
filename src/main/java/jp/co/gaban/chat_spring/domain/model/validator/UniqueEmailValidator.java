@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public void initialize(UniqueEmail annotation) {

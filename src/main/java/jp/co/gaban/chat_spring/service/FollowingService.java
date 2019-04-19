@@ -16,8 +16,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class FollowingService implements Pagination {
 
+    private final FollowingRepository followingRepository;
+
     @Autowired
-    FollowingRepository followingRepository;
+    public FollowingService(FollowingRepository followingRepository) {
+        this.followingRepository = followingRepository;
+    }
 
     public Following findByUserIdAndFollowingId(Long userId, Long followingId) {
         return followingRepository.findByUserIdAndFollowingId(userId, followingId);

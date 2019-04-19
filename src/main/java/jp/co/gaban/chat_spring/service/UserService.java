@@ -20,10 +20,14 @@ public class UserService implements Pagination {
 
     private static final int PAGE_SIZE = 10;
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public Iterable<User> findAll(int page, String sort) {
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    private Iterable<User> findAll(int page, String sort) {
         Pageable pager = PageRequest.of(currentPage(page), PAGE_SIZE, Sort.Direction.ASC, sort);
         return userRepository.findAll(pager);
     }

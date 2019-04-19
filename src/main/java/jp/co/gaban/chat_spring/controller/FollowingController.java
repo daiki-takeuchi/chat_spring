@@ -25,10 +25,14 @@ public class FollowingController {
 
     private final static Logger logger = LoggerFactory.getLogger(FollowingController.class);
 
+    private final FollowingService followingService;
+    private final HttpSession session;
+
     @Autowired
-    private FollowingService followingService;
-    @Autowired
-    HttpSession session;
+    public FollowingController(FollowingService followingService, HttpSession session) {
+        this.followingService = followingService;
+        this.session = session;
+    }
 
     @RequestMapping(value = FollowingController.FOLLOW_PAGE, method = RequestMethod.GET)
     public String follow(@PathVariable("following_id") long followingId, HttpServletRequest request) {

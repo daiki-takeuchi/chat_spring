@@ -15,7 +15,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, Object> {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     private String mail;
     private String password;
