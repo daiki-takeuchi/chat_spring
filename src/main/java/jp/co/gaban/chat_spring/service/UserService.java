@@ -49,7 +49,7 @@ public class UserService implements Pagination {
         return userOptional.orElseGet(User::new);
     }
 
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

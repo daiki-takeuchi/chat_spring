@@ -1,9 +1,20 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-clover-plugin:2.2.3'
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.bmuschko.clover'
 
 group = 'jp.co.gaban'
 version = '0.0.1-SNAPSHOT'
@@ -23,6 +34,12 @@ bootJar{
     launchScript()
 }
 
+clover {
+    report {
+        html = true
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -36,6 +53,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    clover 'org.openclover:clover:4.3.1'
 }
 
 ext['thymeleaf-layout-dialect.version'] = '2.2.2'

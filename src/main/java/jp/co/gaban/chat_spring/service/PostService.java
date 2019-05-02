@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -43,8 +42,8 @@ public class PostService implements Pagination {
         return postRepository.findByUserId(userId, pager);
     }
 
-    public void save(Post post) {
-        postRepository.save(post);
+    public Post save(Post post) {
+        return postRepository.save(post);
     }
 
     public void delete(Post post) {
