@@ -1,0 +1,19 @@
+language: java
+
+sudo: required
+dist: trusty
+
+jdk:
+  - oraclejdk8
+
+before_script:
+  - mysql -uroot < src/main/resources/sql/00-database.sql
+  - mysql -uchat_user -Dgabandb001 -pchat_user < src/main/resources/sql/01-schema.sql
+  - chmod +x gradlew
+
+script:
+  - ./gradlew check
+  - ./gradlew cloverGenerateReport
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
