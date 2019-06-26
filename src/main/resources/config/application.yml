@@ -23,6 +23,13 @@ spring:
       repositories:
         enabled: true
 #server.port: 80
+server:
+  port: 443
+  ssl:
+    key-store: keystore.p12
+    key-store-password: gaban01
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 logging:
   level:
     root: DEBUG
