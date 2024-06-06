@@ -1,10 +1,11 @@
 package jp.co.gaban.chat_spring.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.gaban.chat_spring.domain.model.Post;
 import jp.co.gaban.chat_spring.domain.model.User;
+import jp.co.gaban.chat_spring.domain.model.form.PostForm;
 import jp.co.gaban.chat_spring.service.PostService;
 import jp.co.gaban.chat_spring.service.UserService;
-import jp.co.gaban.chat_spring.domain.model.form.PostForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/05.
+ * Created by takeuchidaiki on 2024/06/04
  */
 @Controller
 public class PostController {
@@ -44,10 +41,10 @@ public class PostController {
         this.session = session;
     }
 
-    @RequestMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE}, method = RequestMethod.GET)
+    @GetMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE})
     public String index(@ModelAttribute("form") PostForm form, Model model, @PathVariable("page") Optional<Integer> argPage) {
-        logger.debug("PostController:[index] Passing through...");
-        logger.debug("form:" + form.toString());
+        logger.info("PostController:[index] Passing through...");
+        logger.info("form:" + form.toString());
 
         int page = 1;
         if(argPage.isPresent()) {
@@ -65,11 +62,11 @@ public class PostController {
         return PostController.ROOT_HTML;
     }
 
-    @RequestMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE}, method = RequestMethod.POST)
+    @PostMapping(value = {PostController.ROOT_PAGE, "/index", PostController.ROOT_PAGER_PAGE})
     public String index(@ModelAttribute("form") @Validated PostForm form, BindingResult result, Model model, @PathVariable("page") Optional<Integer> argPage) {
-        logger.debug("PostController:[index] Passing through...");
-        logger.debug("form:" + form.toString());
-        logger.debug("result:" + result.toString());
+        logger.info("PostController:[index] Passing through...");
+        logger.info("form:" + form.toString());
+        logger.info("result:" + result.toString());
 
         int page = 1;
         if(argPage.isPresent()) {
@@ -96,9 +93,9 @@ public class PostController {
         return PostController.ROOT_HTML;
     }
 
-    @RequestMapping(value = PostController.DELETE_PAGE, method = RequestMethod.GET)
+    @GetMapping(value = PostController.DELETE_PAGE)
     public String delete(@PathVariable("id") long id) {
-        logger.debug("PostController:[delete] Passing through...");
+        logger.info("PostController:[delete] Passing through...");
 
         User sessUser = (User)session.getAttribute("user");
         Post post = postService.findById(id);

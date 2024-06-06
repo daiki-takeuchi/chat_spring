@@ -1,17 +1,17 @@
 package jp.co.gaban.chat_spring.domain.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/05.
+ * Created by takeuchidaiki on 2024/06/03
  */
 @Data
 @Entity
@@ -73,19 +73,5 @@ public class Post implements Serializable {
                 .getAttribute("user", RequestAttributes.SCOPE_SESSION);
         assert sessUser != null;
         return sessUser.getUserName();
-    }
-
-    @Override
-    public String toString() {
-        return "<Post:" +
-                "'id='" + id +
-                "', userId='" + userId +
-                "', content='" + content +
-                "', user='" + user.toString() +
-                "', createdAt='" + createdAt.toString() +
-                "', createdUser='" + createdUser +
-                "', updatedAt='" + updatedAt.toString() +
-                "', updatedUser='" + updatedUser +
-                "'>";
     }
 }

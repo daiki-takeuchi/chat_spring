@@ -1,29 +1,26 @@
 package jp.co.gaban.chat_spring.domain.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jp.co.gaban.chat_spring.domain.security.MyBCryptPasswordEncoder;
 import lombok.Data;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
 /**
- * Created by DaikiTakeuchi on 2019/04/05.
+ * Created by takeuchidaiki on 2024/06/01
  */
 @Data
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -39,7 +36,7 @@ public class User implements Serializable {
     @Column(name="job")
     private String job;
 
-    @Column(name="self_introduction")
+    @Column(name="self_introduction", length = 2048)
     private String selfIntroduction;
 
     @NotNull
@@ -68,7 +65,6 @@ public class User implements Serializable {
     private List<Post> posts;
 
     public boolean isFollowed(Long userId) {
-        System.out.println("following:" + this.following);
         for (Following following : this.following) {
             if(following.getUserId().equals(userId)) {
                 return true;
@@ -111,21 +107,5 @@ public class User implements Serializable {
             return sessUser.getUserName();
         }
         return this.userName;
-    }
-
-    @Override
-    public String toString() {
-        return "<User:" +
-                "'id='" + id +
-                "', userName='" + userName +
-                "', mail='" + mail +
-                "', password='" + password +
-                "', job='" + job +
-                "', selfIntroduction='" + selfIntroduction +
-                "', createdAt='" + createdAt.toString() +
-                "', createdUser='" + createdUser +
-                "', updatedAt='" + updatedAt.toString() +
-                "', updatedUser='" + updatedUser +
-                "'>";
     }
 }

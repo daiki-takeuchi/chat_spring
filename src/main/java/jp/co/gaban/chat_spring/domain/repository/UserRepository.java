@@ -7,11 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/01
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
     User findByMail(String mail);
 
     Page<User> findByUserNameContaining(String userName, Pageable pager);

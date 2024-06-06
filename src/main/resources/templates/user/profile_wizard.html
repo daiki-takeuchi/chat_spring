@@ -79,10 +79,10 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div th:replace="fragments/helper::input('userName', 'ユーザー名', 'face', 'true', ~{:: #userName})">
+                                            <div th:replace="~{fragments/helper::input('userName', 'ユーザー名', 'face', 'true', ~{:: #userName})}">
                                                 <input type="text" id="userName" class="form-control" required="true" th:field="*{userName}">
                                             </div>
-                                            <div th:replace="fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})">
+                                            <div th:replace="~{fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})}">
                                                 <input type="text" id="mail" email="true" class="form-control" required="true" th:field="*{mail}">
                                             </div>
                                         </div>

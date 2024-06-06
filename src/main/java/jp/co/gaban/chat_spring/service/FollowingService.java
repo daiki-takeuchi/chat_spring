@@ -3,14 +3,14 @@ package jp.co.gaban.chat_spring.service;
 import jp.co.gaban.chat_spring.domain.model.Following;
 import jp.co.gaban.chat_spring.domain.repository.FollowingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/04
  */
 @Service
-@EnableTransactionManagement
+@EnableJpaRepositories
 public class FollowingService implements Pagination {
 
     private final FollowingRepository followingRepository;

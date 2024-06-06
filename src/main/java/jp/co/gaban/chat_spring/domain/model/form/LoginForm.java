@@ -1,21 +1,26 @@
 package jp.co.gaban.chat_spring.domain.model.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jp.co.gaban.chat_spring.annotation.PasswordMatch;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/03
  */
 @Data
-@PasswordMatch(mail = "mail", password = "password", message = "{PasswordMatch}")
+@PasswordMatch(mail = "mail", password = "password")
 public class LoginForm {
-    @NotBlank(message = "{mail}{NotBlank}")
+
+    @NotBlank
     @Email
     private String mail;
 
-    @NotBlank(message = "{password}{NotBlank}")
+    @NotBlank
     private String password;
+
+    @Override
+    public String toString() {
+        return "LoginForm(mail=" + this.getMail() + ", password=******)";
+    }
 }

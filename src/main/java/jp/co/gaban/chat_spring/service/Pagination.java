@@ -1,7 +1,7 @@
 package jp.co.gaban.chat_spring.service;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/01
  */
 public interface Pagination {
 

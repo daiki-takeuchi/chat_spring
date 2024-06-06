@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive" th:if="${result.getTotalElements() > 10}">
-                                        <div th:replace="fragments/helper::pagination(${__result__}, '/user', 'user_name=')"></div>
+                                        <div th:replace="~{fragments/helper::pagination(${__result__}, '/user', 'user_name=')}"></div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-hover">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div th:replace="fragments/profile :: profile"></div>
+                    <div th:replace="~{fragments/profile :: profile}"></div>
                 </div>
             </div>
         </div>

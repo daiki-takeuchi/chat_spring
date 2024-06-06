@@ -1,5 +1,6 @@
 package jp.co.gaban.chat_spring.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.gaban.chat_spring.annotation.NonAuth;
 import jp.co.gaban.chat_spring.domain.model.Post;
 import jp.co.gaban.chat_spring.domain.model.User;
@@ -17,11 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/13.
+ * Created by takeuchidaiki on 2024/06/01
  */
 @Controller
 public class UserController {
@@ -50,10 +50,10 @@ public class UserController {
         this.session = session;
     }
 
-    @RequestMapping(value = {UserController.INDEX_PAGE, UserController.INDEX_PAGER_PAGE}, method = RequestMethod.GET)
+    @GetMapping(value ={UserController.INDEX_PAGE, UserController.INDEX_PAGER_PAGE})
     public String index(@ModelAttribute("form") PostForm form, @RequestParam("user_name") Optional<String> argUserName, Model model, @PathVariable("page") Optional<Integer> argPage) {
-        logger.debug("UserController:[index] Passing through...");
-        logger.debug("form:" + form.toString());
+        logger.info("UserController:[index] Passing through...");
+        logger.info("form:" + form.toString());
 
         int page = 1;
         if(argPage.isPresent()) {
@@ -76,10 +76,10 @@ public class UserController {
         return UserController.INDEX_HTML;
     }
 
-    @RequestMapping(value = {UserController.DETAIL_PAGE, UserController.DETAIL_PAGER_PAGE}, method = RequestMethod.GET)
+    @GetMapping(value = {UserController.DETAIL_PAGE, UserController.DETAIL_PAGER_PAGE})
     public String detail(@ModelAttribute("form") PostForm form, @PathVariable("id") Long id, Model model, @PathVariable("page") Optional<Integer> argPage) {
-        logger.debug("UserController:[detail] Passing through...");
-        logger.debug("form:" + form.toString());
+        logger.info("UserController:[detail] Passing through...");
+        logger.info("form:" + form.toString());
 
         int page = 1;
         if(argPage.isPresent()) {
@@ -95,7 +95,7 @@ public class UserController {
         return UserController.DETAIL_HTML;
     }
 
-    @RequestMapping(value = UserController.PROFILE_PAGE, method = RequestMethod.GET)
+    @GetMapping(value = UserController.PROFILE_PAGE)
     public String profile(@ModelAttribute("form") ProfileWizardForm form, @PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         form.setUser(user);
@@ -105,8 +105,11 @@ public class UserController {
         return UserController.PROFILE_HTML;
     }
 
-    @RequestMapping(value = UserController.PROFILE_PAGE, method = RequestMethod.POST)
-    public String profile(@ModelAttribute("form") ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id) {
+    @PostMapping(value = UserController.PROFILE_PAGE)
+    public String profile(@ModelAttribute("form") @Validated ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id) {
+        logger.info("UserController:[profile] Passing through...");
+        logger.info("form:" + form.toString());
+        logger.info("result:" + result.toString());
         User user = userService.findById(id);
 
         if(!result.hasErrors()) {
@@ -126,17 +129,17 @@ public class UserController {
     }
 
     @NonAuth
-    @RequestMapping(value = UserController.REGISTER_PAGE, method = RequestMethod.GET)
+    @GetMapping(value = UserController.REGISTER_PAGE)
     public String register(@ModelAttribute("form") RegisterForm form) {
         return UserController.REGISTER_HTML;
     }
 
     @NonAuth
-    @RequestMapping(value = UserController.REGISTER_PAGE, method = RequestMethod.POST)
+    @PostMapping(value = UserController.REGISTER_PAGE)
     public String register(@ModelAttribute("form") @Validated RegisterForm form, BindingResult result) {
-        logger.debug("UserController:[register] Passing through...");
-        logger.debug("form:" + form.toString());
-        logger.debug("result:" + result.toString());
+        logger.info("UserController:[register] Passing through...");
+        logger.info("form:" + form.toString());
+        logger.info("result:" + result.toString());
 
         if(!result.hasErrors()) {
             // 登録処理
@@ -153,4 +156,5 @@ public class UserController {
         }
         return UserController.REGISTER_HTML;
     }
+
 }
