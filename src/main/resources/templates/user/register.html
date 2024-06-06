@@ -61,16 +61,16 @@
                                 <div class="col-md-12">
                                     <form class="form" id="form" method="post" data-toggle="validator" th:object="${form}">
                                         <div class="card-content">
-                                            <div th:replace="fragments/helper::input('userName', 'ユーザー名', 'face', 'true', ~{:: #userName})">
+                                            <div th:replace="~{fragments/helper::input('userName', 'ユーザー名', 'face', 'true', ~{:: #userName})}">
                                                 <input type="text" id="userName" class="form-control" required="true" th:field="*{userName}">
                                             </div>
-                                            <div th:replace="fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})">
+                                            <div th:replace="~{fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})}">
                                                 <input type="text" id="mail" email="true" class="form-control" required="true" th:field="*{mail}">
                                             </div>
-                                            <div th:replace="fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})">
+                                            <div th:replace="~{fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})}">
                                                 <input type="password" id="password" class="form-control" required="true" th:field="*{password}">
                                             </div>
-                                            <div th:replace="fragments/helper::input('passwordConfirmation', 'パスワードの確認', 'lock_outline', 'true', ~{:: #passwordConfirmation})">
+                                            <div th:replace="~{fragments/helper::input('passwordConfirmation', 'パスワードの確認', 'lock_outline', 'true', ~{:: #passwordConfirmation})}">
                                                 <input type="password" id="passwordConfirmation" class="form-control" required="true" th:field="*{passwordConfirmation}">
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div th:replace="fragments/footer :: footer"></div>
+        <div th:replace="~{fragments/footer :: footer}"></div>
     </div>
 </div>
 </body>

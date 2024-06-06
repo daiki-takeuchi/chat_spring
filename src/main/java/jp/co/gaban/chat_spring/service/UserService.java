@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.util.Optional;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/01
  */
 @Service
 @EnableTransactionManagement
@@ -52,4 +52,5 @@ public class UserService implements Pagination {
     public User save(User user) {
         return userRepository.save(user);
     }
+
 }

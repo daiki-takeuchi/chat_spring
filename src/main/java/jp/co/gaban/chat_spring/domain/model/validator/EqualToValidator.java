@@ -1,11 +1,10 @@
 package jp.co.gaban.chat_spring.domain.model.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import jp.co.gaban.chat_spring.annotation.EqualTo;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/13.

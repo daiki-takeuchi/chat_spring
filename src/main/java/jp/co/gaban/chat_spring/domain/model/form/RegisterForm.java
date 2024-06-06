@@ -1,11 +1,11 @@
 package jp.co.gaban.chat_spring.domain.model.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jp.co.gaban.chat_spring.annotation.EqualTo;
 import jp.co.gaban.chat_spring.annotation.UniqueEmail;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/06.
@@ -13,17 +13,22 @@ import javax.validation.constraints.NotBlank;
 @Data
 @EqualTo(firstField = "password", secondField = "passwordConfirmation", message = "{PasswordUnMach}")
 public class RegisterForm {
-    @NotBlank(message = "{userName}{NotBlank}")
+    @NotBlank
     private String userName;
 
-    @NotBlank(message = "{mail}{NotBlank}")
+    @NotBlank
     @Email
-    @UniqueEmail(message = "{UniqueEmail}")
+    @UniqueEmail
     private String mail;
 
-    @NotBlank(message = "{password}{NotBlank}")
+    @NotBlank
     private String password;
 
-    @NotBlank(message = "{passwordConfirmation}{NotBlank}")
+    @NotBlank
     private String passwordConfirmation;
+
+    @Override
+    public String toString() {
+        return "RegisterForm(userName=" + this.userName + ", mail=" + this.mail + ", password=******, passwordConfirmation=******)";
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/03
  */
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {

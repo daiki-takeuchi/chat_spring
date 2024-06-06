@@ -1,12 +1,11 @@
 package jp.co.gaban.chat_spring.domain.model.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 /**
- * Created by DaikiTakeuchi on 2019/04/06.
+ * Created by takeuchidaiki on 2024/06/04
  */
 @Data
 public class PostForm {

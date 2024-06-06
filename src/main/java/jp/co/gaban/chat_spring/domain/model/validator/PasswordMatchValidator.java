@@ -1,5 +1,7 @@
 package jp.co.gaban.chat_spring.domain.model.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import jp.co.gaban.chat_spring.annotation.PasswordMatch;
 import jp.co.gaban.chat_spring.domain.model.User;
 import jp.co.gaban.chat_spring.service.UserService;
@@ -7,8 +9,6 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 /**
  * Created by DaikiTakeuchi on 2019/04/13.

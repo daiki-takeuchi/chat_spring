@@ -1,5 +1,7 @@
 package jp.co.gaban.chat_spring;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jp.co.gaban.chat_spring.annotation.NonAuth;
 import jp.co.gaban.chat_spring.controller.LoginController;
 import jp.co.gaban.chat_spring.domain.model.User;
@@ -8,12 +10,10 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
- * Created by takeuchidaiki on 2019/04/08
+ * Created by takeuchidaiki on 2024/06/04
  */
 public class Interceptor implements HandlerInterceptor {
     @Override

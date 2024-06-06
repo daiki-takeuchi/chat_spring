@@ -1,0 +1,22 @@
+services:
+  app:
+    image: amazoncorretto:21
+    container_name: app
+    ports:
+      - 8080:8080
+    tty: true
+    volumes:
+      - ./server:/srv:cached
+    working_dir: /srv
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    env_file: .env # 環境変数の定義に.envを利用
+    ports:
+      - "3306:3306" #ポート番号の設定
+    volumes:
+      - ./docker/db/initdb:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf

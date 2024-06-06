@@ -1,6 +1,3 @@
-#server.port: 5000
-logging:
-  level:
-    root: INFO
-    springframework.web: INFO
-    org.hibernate: INFO
+spring:
+  application:
+    name: chat_spring_stag

@@ -61,10 +61,10 @@
                                     <h4 class="card-title">Login</h4>
                                 </div>
                                 <div class="card-content">
-                                    <div th:replace="fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})">
+                                    <div th:replace="~{fragments/helper::input('mail', 'メールアドレス', 'email', 'true', ~{:: #mail})}">
                                         <input type="text" id="mail" email="true" class="form-control" required="true" th:field="*{mail}">
                                     </div>
-                                    <div th:replace="fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})">
+                                    <div th:replace="~{fragments/helper::input('password', 'パスワード', 'lock_outline', 'true', ~{:: #password})}">
                                         <input type="password" id="password" class="form-control" required="true" th:field="*{password}">
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div th:replace="fragments/footer :: footer"></div>
+        <div th:replace="~{fragments/footer :: footer}"></div>
     </div>
 </div>
 </body>

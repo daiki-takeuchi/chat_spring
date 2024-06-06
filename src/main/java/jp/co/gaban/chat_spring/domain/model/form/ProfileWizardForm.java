@@ -1,11 +1,11 @@
 package jp.co.gaban.chat_spring.domain.model.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jp.co.gaban.chat_spring.annotation.UniqueEmail;
 import jp.co.gaban.chat_spring.domain.model.User;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,12 +15,12 @@ import java.util.Map;
  */
 @Data
 public class ProfileWizardForm {
-    @NotBlank(message = "{userName}{NotBlank}")
+    @NotBlank
     private String userName;
 
-    @NotBlank(message = "{mail}{NotBlank}")
+    @NotBlank
     @Email
-    @UniqueEmail(message = "{UniqueEmail}")
+    @UniqueEmail
     private String mail;
 
     private String[] job;
