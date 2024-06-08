@@ -106,7 +106,7 @@ public class UserController {
     }
 
     @PostMapping(value = UserController.PROFILE_PAGE)
-    public String profile(@ModelAttribute("form") @Validated ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id) {
+    public String profile(@ModelAttribute("form") @Validated ProfileWizardForm form, BindingResult result, @PathVariable("id") Long id, Model model) {
         logger.info("UserController:[profile] Passing through...");
         logger.info("form:" + form.toString());
         logger.info("result:" + result.toString());
@@ -125,6 +125,7 @@ public class UserController {
             session.setAttribute("user", user);
             return "redirect:/";
         }
+        model.addAttribute("jobItems", ProfileWizardForm.JOB_ITEMS);
         return UserController.PROFILE_HTML;
     }
 
