@@ -100,7 +100,7 @@ public class PostController {
         User sessUser = (User)session.getAttribute("user");
         Post post = postService.findById(id);
 
-        if(post != null && post.getUserId().equals(sessUser.getId())) {
+        if(post.getUserId() != null && post.getUserId().equals(sessUser.getId())) {
             postService.delete(post);
         }
         return "redirect:/";
