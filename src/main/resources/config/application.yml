@@ -1,11 +1,11 @@
 spring:
   application:
-    name: chat_spring_test
+    name: chat_spring
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db:3306/sample?character_set_server=utf8
-    username: sample_user
-    password: fugafuga
+    url: jdbc:mysql://db:3306/${MYSQL_DATABASE}?character_set_server=utf8
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:

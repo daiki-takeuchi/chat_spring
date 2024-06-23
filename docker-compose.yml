@@ -2,6 +2,7 @@ services:
   app:
     image: amazoncorretto:21
     container_name: app
+    env_file: .env # 環境変数の定義に.envを利用
     ports:
       - 8080:8080
     tty: true
